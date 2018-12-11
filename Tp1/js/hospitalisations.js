@@ -17,20 +17,24 @@ var tbl_Patients = [Patient1,Patient2,Patient3,Patient4,Patient5,Patient6,Patien
 function initialize(){     
 	
     var size = tbl_Patients.length;
-	 // document.write(size); 
-	 
-	 var tags = "<table border=1>";
+    
+   var table="<table border="+1+">";
 	for(i=0; i < size; i++)	
 	{
-		tags+="<tr><td>"+tbl_Patients[i].Dossier+"</td><td>"+tbl_Patients[i].Nom+"</td><td>"+tbl_Patients[i].Prenom+"</td><td>"+tbl_Patients[i].Naissence+"</td><td>"+tbl_Patients[i].Sexe+"</td></tr>";
-		//console.log(tbl_Patients[i]);
+      table+=  "<tr>"+
+                 "<td>"+tbl_Patients[i].Dossier+"</td>"+
+                 "<td>"+tbl_Patients[i].Nom+"</td>"+
+                 "<td>"+tbl_Patients[i].Prenom+"</td>"+
+                 "<td>"+tbl_Patients[i].Naissence+"</td>"+
+                 "<td>"+tbl_Patients[i].Sexe+"</td>"+
+                "</tr>";                   
 	}
-		tags++ ="</table>";
-		document.getelemnetById('divLit').In
-     // for (p in Patient1) {
-         // console.log(Patient1[p]);
-     // }
+    table+= "</table>";
+    
+    document.write(table);
+    //document.getElementById('divZonaAffiche').innerHTML=table;
 }
+
 
 
 
