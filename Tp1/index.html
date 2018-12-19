@@ -2,51 +2,52 @@
 <html>
 <head>
     <title>Model</title>
+    <meta charset="utf-8"/>
+	<!--My own javascript-->
     <script type="text/javascript" src="js/hospitalisations.js"></script>
-	<link href="content/style.css" rel="stylesheet" />
+	    <!--BOOTSTRAP CSS-->
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <!--jQuery-->
+    <!-- <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script> -->
+    <!--BOOTSTRAP JavaScript-->
+    <!-- <script type="text/javascript" src="js/bootstrap.min.js"> </script> -->
+    <!--My own CSS-->
+	<link href="css/style.css" type="text/css" rel="stylesheet"/>
 </head>
-
-<body>  
-    <!-- =============== BARRE OUTILS ===============-->
-    <div>         
-        <ul>
-          <!--
-                Affichera dans la «Zone d’affichage» la liste choisie.
-            -->
-          <li><a href="#" onclick="showListPatients()">Liste des patients</a></li>
-          <!--
-                Affichera dans la «Zone d’affichage» la liste choisie.
-            -->
-          <li><a href="#" onclick="">Liste des etablissements</a></li>
-          <!--
-            ffichera dans la «Zone d’affichage» la liste choisie.
-            -->
-          <li><a href="#" onclick="">Liste des hospitalisations</a></li>
-          <!--
-            Affichera un champ SELECT avec le numéro de dossier de tous lespatients (pris directement dutableau JSON).
-            ...Lorsqu’on choisira le dossier du patient, un tableau HTML sera affiché selon le même 
-            ...format que les listes précédentes.
-                -->
-          <li><a href="#" onclick="">Hospitalisation par patient</a></li>
-          <!--
-            Afficher un champ SELECT pour la liste des codes d’établissement et une autre liste pour les spécialités.
-            Les champs SELECT sont générés directement à partir des données des tableaux JSON.    
-           -->
-          <li><a href="#" onclick="">Hospitalisation par etablissement et par specialite</a></li>
-        </ul>
-    </div>  
-    <br>
-    <!-- =============== ZONE D'AFFICHAGE ===============--> 
-    <!--
-        affichée dans un tableau HTML dont la 1ère ligne contiendra les attributs de la table en question.
-    -->
-    <div class="zoneAffichage" id="divTable">
-
-    </div>      
-    <!-- =============== STATUS ===============-->
-    <div class="status">
-
+<body onload="hiddenDiv();">     
+     <div class="container-scale" style=" height: 750px;"> 
+        <!-- =============== ZONA MENU ===============-->
+        <div class="row" id="divLigMenu" style="border-style: dotted;height: 130px;">
+            <div class="col-sm-12" id="divColMenu" >                
+                <div class="topnav" >
+				  <a class="active" href="#" onclick="hiddenDiv()">Home</a>
+					<a href="#" onclick="showPatients()">Patients</a>
+					<a href="#" onclick="showEtablissements()">Établissements</a>
+					<a href="#" onclick="showHospitalisations()">Hospitalisations</a>
+					<a href="#" onclick="showHospitalisationByPatient()">Hospitalisation par patient</a>
+					<a href="#" onclick="()">Hospitalisation par etablissement ou specialite</a>
+                </div>
+            </div>
+        </div>   
+		
+        <!-- =============== ZONE D'AFFICHAGE ===============-->
+        <div class="row" id="divLigAffiche" style="border-style: dotted; height: 550px;">            
+			  <div class="col-sm-2" id="divColAfficheLeft" style="background-color:yellow">                
+					 <select id="selectDossierPatient" onChange="showTable(this.selectedIndex)"> </select>								 
+			  </div>
+			  <div class="col-sm-10" id="divColAffiche" style="background-color:red">
+						<!--RendePage zone - ici -->			  	
+			  </div>		  
+        </div>   
+		
+        <!-- =============== ZONA STATUS ===============-->
+        <div class="row" id="divLigStatus" style="border-style: dotted;">            
+            <div class="col-sm-12" id="divColStatus">                
+            </div>
+        </div>  
+		
     </div>
-    
 </body>
 </html>
+
+
