@@ -32,8 +32,9 @@
 		
         <!-- =============== ZONE D'AFFICHAGE ===============-->
         <div class="row" id="divLigAffiche" style="border-style: dotted; height: 550px;">            
-			  <div class="col-sm-2" id="divColAfficheLeft" style="background-color:yellow">                
-					 <select id="selectDossierPatient" onChange="showTable(this.selectedIndex)"> </select>								 
+			  <div class="col-sm-2" id="divColAfficheLeft" style="background-color:yellow">  
+                   <!-- onChange, send to method the selected item -->
+				    <select id="selectDossierPatient" onChange="showTable(this)"></select>								 
 			  </div>
 			  <div class="col-sm-10" id="divColAffiche" style="background-color:red">
 						<!--RendePage zone - ici -->			  	

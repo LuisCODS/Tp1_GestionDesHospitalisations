@@ -1,5 +1,5 @@
 
-// <-- ============================== PATIENTS  -->
+// <-- ============================== PATIENTS ============================== -->
 
 //OBJETS...
 var Patient1  = {Dossier: 1,   Nom:"Leger",     Prenom:"Emile", 	Naissence: "26 mars 1917",     Sexe:"M"};
@@ -13,7 +13,7 @@ var Patient8  =	{Dossier: 8,   Nom:"St-Jean",   Prenom:"Arthur", 	Naissence: "7 
 var Patient9  =	{Dossier: 9,   Nom:"Bechard",   Prenom:"Marc", 	    Naissence: "8 aout 1980",      Sexe:"M"};
 var Patient10 =	{Dossier: 10,  Nom:"Chartrand", Prenom:"Mario",     Naissence: "23 juillet 1947",  Sexe:"M"};
 
-//TABLEAU vaux 10
+//TABLEAU 
 var tbl_Patients = [Patient1,
 					Patient2,
 					Patient3,
@@ -25,7 +25,7 @@ var tbl_Patients = [Patient1,
 					Patient9,
 					Patient10];
 
-// <-- =============================== ETABLISSEMENTS  -->
+// <-- =============================== ETABLISSEMENTS ============================== -->
 
 //OBJETS...
 var Etablissement1={Etablissement:1234,Nom:"Centre hospitalier Sud",Adresse:"1234 boul. Sud, Montreal, Qc",CodePostal:"H2M 3Y6",Telephone:"514-323-1234"};
@@ -43,7 +43,7 @@ var tbl_Etablissements =[Etablissement1,
 						Etablissement5,
 						Etablissement6];
 
-// <-- =============================== HOSPITALISATIONS  -->
+// <-- =============================== HOSPITALISATIONS ============================== -->
 
 //OBJETS...
 var Hospitalisation1={CodeEtablissement:1234,NoDossierPatient:5,DateAdmission:"14-aout-00",DateSortie:"14-aout-01",Specialite:"medicine"};
@@ -53,7 +53,7 @@ var Hospitalisation4={CodeEtablissement:2346,NoDossierPatient:1,DateAdmission:"1
 var Hospitalisation5={CodeEtablissement:2346,NoDossierPatient:3,DateAdmission:"12-avr.-95",DateSortie:"30-avr.-95",Specialite:"medicine"};
 var Hospitalisation6={CodeEtablissement:3980,NoDossierPatient:5,DateAdmission:"14-fev.-00",DateSortie:"14-mars-00",Specialite:"medicine"};
 var Hospitalisation7={CodeEtablissement:3980,NoDossierPatient:5,DateAdmission:"01-jan.-01",DateSortie:"01-fev.-01",Specialite:"medicine"};
-var Hospitalisation8={CodeEtablissement:3980,NoDossierPatient:9,DateAdmission:"03-ave.-95",DateSortie:"08-avr.-95",Specialite:"orthopedie"};
+var Hospitalisation8={CodeEtablissement:3980,NoDossierPatient:9,DateAdmission:"03-avr.-95",DateSortie:"08-avr.-95",Specialite:"orthopedie"};
 var Hospitalisation9={CodeEtablissement:3980,NoDossierPatient:7,DateAdmission:"27-nov.-99",DateSortie:"04-dec.-99",Specialite:"chirurgie"};
 var Hospitalisation10={CodeEtablissement:3980,NoDossierPatient:10,DateAdmission:"28-avr.-97",DateSortie:"05-mai.-97",Specialite:"chirurgie"};
 var Hospitalisation11={CodeEtablissement:4177,NoDossierPatient:3,DateAdmission:"03-aout-01",DateSortie:"05-dec.-01",Specialite:"medicine"};
@@ -74,12 +74,16 @@ var tbl_Hospitalisations =[	Hospitalisation1,
 							Hospitalisation11,
 							Hospitalisation12,
 							Hospitalisation13];
-
-							
-							
+	
+					
+	var tbl_Hopital = new Array();
+        tbl_Hopital["Patiens"]          = tbl_Patients;
+        tbl_Hopital["Etablissements"]   = tbl_Etablissements;
+        tbl_Hopital["Hospitalisations"] = tbl_Hospitalisations;				
 							
 							
 // <-- =============================== (FUNCTIONS) =============================== -->
+
  function  hiddenDiv(){
 	document.getElementById("divColAffiche").style.visibility = "hidden";
 	document.getElementById("divColAfficheLeft").style.visibility = "hidden";
@@ -187,63 +191,76 @@ function showHospitalisations(){
    Lorsqu’on choisira le dossier du patient, un tableau HTML sera affiché selon le même 
    ...format que les listes précédentes.
 */
-function showHospitalisationByPatient(){    
-
+function showHospitalisationByPatient()
+{   
 	document.getElementById("divColAffiche").style.visibility = "hidden";
 	document.getElementById("divColAfficheLeft").style.visibility = "hidden";
 
     var selecDossier = document.getElementById('selectDossierPatient');//get select teg
-		selecDossier.options.length=0;//on la vide. SelecDossier.options.length = 0
-	
-	//Create the first option to select: selecDossier.options.length= 1
-    selecDossier.options[selecDossier.options.length]=new Option("Choisir dossier...");
+    selecDossier.options.length=0;//to clen	
+    selecDossier.options[selecDossier.options.length]=new Option("Choisir  un dossier...");//set up default option
 
-    for (var prop in tbl_Patients) {
-		//Select has, as options, patient's dossier number
-        selecDossier.options[selecDossier.options.length] = new Option(tbl_Patients[prop].Dossier); 
-    } 
-    //now, selecDossier.options.length = 11
+    var tblSort = new Array();
+	var taille = 1;
+    
+	for(var prop in tbl_Hopital["Hospitalisations"] ){
+		tblSort[taille] = tbl_Hopital["Hospitalisations"][prop].NoDossierPatient;
+		taille++;
+	}	
+    
+	tblSort.sort()//On trie avant de filtrer
+    
+	for(var i = 0; i < tblSort.length;i++)	{
+		//remove each element equal to the preceding 
+		if( tblSort[i] != tblSort[i+1] ){
+            selecDossier.options[selecDossier.options.length] = new Option(tblSort[i]);
+		}
+	}
 	//On disponibilise la div que contient le select
 	document.getElementById("divColAfficheLeft").style.visibility = "visible";
+}//end function
 
+function showTable(select){
+	
+	var table="<table border="+1+" ; class="+"table"+">";
+				//1 LIGNE and 5 COLONNES
+				 table+="<tr>"+
+							"<td>"+"Code etablissement" +"</td>"+
+							"<td>"+"No dossier patient" +"</td>"+
+							"<td>"+"Date admission"     +"</td>"+
+							"<td>"+"Date Sortie"		+"</td>"+
+							"<td>"+"Specialite"         +"</td>"+
+						  "</tr>";
+						  
+	for(var i in  select.options)//Pour chaque option
+	{
+		//...si l'item a été selectionné
+		if(select.options[i].selected)
+		{
+			//...recupere sa valeur 
+			var vl = select.options[i].text;
+			//alert(vl);
+			for(var prop in tbl_Hospitalisations)
+			{
+				if(tbl_Hospitalisations[prop].NoDossierPatient == vl)
+				{
+					table+="<tr>"+
+								 "<td>"+tbl_Hospitalisations[prop].CodeEtablissement+"</td>"+
+								 "<td>"+tbl_Hospitalisations[prop].NoDossierPatient	+"</td>"+
+								 "<td>"+tbl_Hospitalisations[prop].DateAdmission	+"</td>"+
+								 "<td>"+tbl_Hospitalisations[prop].DateSortie		+"</td>"+
+								 "<td>"+tbl_Hospitalisations[prop].Specialite		+"</td>"+
+						"</tr>"; 
+				}
+			}
+		}		
+	}
+	table+= "</table>";    
+	document.getElementById("divColAffiche").style.visibility = "visible";
+	document.getElementById('divColAffiche').innerHTML=table;	
 }
 
-function showTable(indexParm){	
-	
-	document.getElementById("divColAffiche").style.visibility = "hidden"; 
-	 var patient;	 
-	for(var i in  tbl_Patients)
-	{	
-		if(tbl_Patients[i].Dossier == indexParm)
-		{
-			patient = tbl_Patients[i];//On saisie le patient		
-			for(var prop in patient)//Pour chaque proprieté de celui-ci...
-			{
-				var table="<table border="+1+" ; class="+"table"+">";
-				//FIRST COLONNES ADN LIGNE....
-				 table+="<tr>"+
-							"<td>"+"Dossier"  +"</td>"+
-							"<td>"+"Nom"      +"</td>"+
-							"<td>"+"Prenom"   +"</td>"+
-							"<td>"+"Naissence"+"</td>"+
-							"<td>"+"Sexe"     +"</td>"+
-						  "</tr>";
-				
-				  table+=  "<tr>"+
-								 "<td>"+tbl_Patients[i].Dossier+"</td>"+
-								 "<td>"+tbl_Patients[i].Nom+"</td>"+
-								 "<td>"+tbl_Patients[i].Prenom+"</td>"+
-								 "<td>"+tbl_Patients[i].Naissence+"</td>"+
-								 "<td>"+tbl_Patients[i].Sexe+"</td>"+
-							"</tr>";                   
-				
-				table+= "</table>";    
-				document.getElementById("divColAffiche").style.visibility = "visible";
-				document.getElementById('divColAffiche').innerHTML=table;
-			}//end for	
-		}//end if			
-    }//end for		
-}//methode end
+
 
 
 
