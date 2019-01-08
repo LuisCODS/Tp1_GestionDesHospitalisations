@@ -14,7 +14,7 @@
     <!--My own CSS-->
 	<link href="css/style.css" type="text/css" rel="stylesheet"/>
 </head>
-<body onload="hiddenDiv();">     
+<body onload="initialize();">     
      <div class="container-scale" style=" height: 750px;"> 
         <!-- =============== ZONA MENU ===============-->
         <div class="row" id="divLigMenu" style="border-style: dotted;height: 130px;">
@@ -24,8 +24,8 @@
 					<a href="#" onclick="showPatients()">Patients</a>
 					<a href="#" onclick="showEtablissements()">Établissements</a>
 					<a href="#" onclick="showHospitalisations()">Hospitalisations</a>
-					<a href="#" onclick="showHospitalisationByPatient()">Hospitalisation par patient</a>
-					<a href="#" onclick="()">Hospitalisation par etablissement ou specialite</a>
+					<a href="#" onclick="chargerDossier()">Hospitalisation par patient</a>
+					<a href="#" onclick="chargerEtablissiment()">Hospitalisation par etablissement ou specialite</a>
                 </div>
             </div>
         </div>   
@@ -33,11 +33,22 @@
         <!-- =============== ZONE D'AFFICHAGE ===============-->
         <div class="row" id="divLigAffiche" style="border-style: dotted; height: 550px;">            
 			  <div class="col-sm-2" id="divColAfficheLeft" style="background-color:yellow">  
-                   <!-- onChange, send to method the selected item -->
-				    <select id="selectDossierPatient" onChange="showTable(this)"></select>								 
+					<p id="tag_p_Title" style="visibility:hidden">Selectionner le numero d'etablissement:</p>
+				    <select id="selectByDossier" 
+							onChange="showTableHospByPatient(this)">
+					</select>	
+					<select id="selectByEtablissement" 
+							onChange="chargerSpecialite(this)" 
+							style="visibility:hidden">
+					</select>
+					<br><br>
+					<select id="specialite"
+							style="visibility:hidden"
+							onChange="showTableBySpecialite(this)">
+					</select>
 			  </div>
 			  <div class="col-sm-10" id="divColAffiche" style="background-color:red">
-						<!--RendePage zone - ici -->			  	
+						<!--RendePage zone -->			  	
 			  </div>		  
         </div>   
 		

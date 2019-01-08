@@ -82,21 +82,34 @@ var tbl_Hospitalisations =[	Hospitalisation1,
         tbl_Hopital["Hospitalisations"] = tbl_Hospitalisations;				
 							
 							
-// <-- =============================== (FUNCTIONS) =============================== -->
+// <-- //////////////////////////////////  (FUNCTIONS) ////////////////////////////////// -->
 
- function  hiddenDiv(){
+function initialize()
+{
+	hiddenDiv()
+}
+
+//Cache certains elements pour chaque click sur le Menu
+ function  hiddenDiv()
+ {
 	document.getElementById("divColAffiche").style.visibility = "hidden";
 	document.getElementById("divColAfficheLeft").style.visibility = "hidden";
+	document.getElementById("selectByDossier").style.visibility = "hidden";
+	document.getElementById("selectByEtablissement").style.visibility = "hidden";
+	document.getElementById("tag_p_Title").style.visibility = "hidden";
+	document.getElementById("specialite").style.visibility = "hidden";
  }
+
+// <-- _______________________________________  ONGLET - PATIENT _______________________________________ -->
 
 /*  Affichera dans la «Zone d’affichage» la liste des patients. 
 	La liste sera affichée dans un tableau HTML dont la 1ère ligne contiendra les attributs de la table en question.
 */
 function showPatients(){   
-	hiddenDiv();
+	hiddenDiv(); //clean before
     var size = tbl_Patients.length;
-    
-	var table="<table border="+1+"; class="+"table"+">";
+    //var table="<table border="+1+"; class="+"table"+">";
+	var table="<table class="+"table"+">";
     //FIRST COLONNES ADN LIGNE....
        table+="<tr>"+
                 "<td>"+"Dossier"  +"</td>"+
@@ -104,8 +117,7 @@ function showPatients(){
                 "<td>"+"Prenom"   +"</td>"+
                 "<td>"+"Naissence"+"</td>"+
                 "<td>"+"Sexe"     +"</td>"+
-               "</tr>";
-    
+               "</tr>";    
 	for(i=0; i < size; i++)	
 	{
       table+=  "<tr>"+
@@ -118,9 +130,10 @@ function showPatients(){
 	}
     table+= "</table>";    
 	document.getElementById("divColAffiche").style.visibility = "visible";
-    document.getElementById('divColAffiche').innerHTML=table;
-	
+    document.getElementById('divColAffiche').innerHTML=table;	
 }
+
+// <-- _______________________________________  ONGLET - HOSPITALISATION _______________________________________ -->
 
 /*  Affichera dans la «Zone d’affichage» la liste des établissements. 
 	La liste sera affichée dans un tableau HTML dont la 1ère ligne contiendra les attributs de la table en question.
@@ -129,8 +142,8 @@ function showEtablissements(){
     hiddenDiv();
     var size = tbl_Etablissements.length;
     
-   var table="<table border="+1+">";
-    //FIRST COLONNES ADN LIGNE....
+   var table="<table class="+"table"+">";
+    //1 LIGNE and 5 COLONNES
        table+="<tr>"+
                 "<td>"+"Etablissement"   +"</td>"+
                 "<td>"+"Nom"             +"</td>"+
@@ -159,11 +172,10 @@ function showEtablissements(){
 */
 function showHospitalisations(){     
     hiddenDiv();
-	//document.getElementById('divColAffiche').innerHTML="";
     var size = tbl_Hospitalisations.length;
     
-   var table="<table border="+1+">";
-    //FIRST COLONNES ADN LIGNE....
+   var table="<table class="+"table"+">";
+    //1 LIGNE and 5 COLONNES
        table+="<tr>"+
                 "<td>"+"Code etablissement" +"</td>"+
                 "<td>"+"No dossier patient" +"</td>"+
@@ -187,23 +199,27 @@ function showHospitalisations(){
     document.getElementById('divColAffiche').innerHTML=table;
 }
 
+// <-- _______________________________________  ONGLET - HOSPITALISATION PAR PATIENT _______________________________________ -->
+
 /* Affichera un champ SELECT avec le numéro de dossier de tous les patients (pris directement du tableau JSON).
    Lorsqu’on choisira le dossier du patient, un tableau HTML sera affiché selon le même 
    ...format que les listes précédentes.
 */
-function showHospitalisationByPatient()
+function chargerDossier()
 {   
-	document.getElementById("divColAffiche").style.visibility = "hidden";
-	document.getElementById("divColAfficheLeft").style.visibility = "hidden";
-
-    var selecDossier = document.getElementById('selectDossierPatient');//get select teg
+	//pour chaque click...
+	hiddenDiv()
+	document.getElementById("selectByDossier").style.visibility = "visible";
+	
+    var selecDossier = document.getElementById('selectByDossier');
     selecDossier.options.length=0;//to clen	
-    selecDossier.options[selecDossier.options.length]=new Option("Choisir  un dossier...");//set up default option
+    selecDossier.options[selecDossier.options.length]=new Option("Choisir  un dossier...");
 
     var tblSort = new Array();
 	var taille = 1;
     
-	for(var prop in tbl_Hopital["Hospitalisations"] ){
+	for(var prop in tbl_Hopital["Hospitalisations"] )
+	{
 		tblSort[taille] = tbl_Hopital["Hospitalisations"][prop].NoDossierPatient;
 		taille++;
 	}	
@@ -220,17 +236,18 @@ function showHospitalisationByPatient()
 	document.getElementById("divColAfficheLeft").style.visibility = "visible";
 }//end function
 
-function showTable(select){
+//Affiche le tableau des patients
+function showTableHospByPatient(select){
 	
 	var table="<table border="+1+" ; class="+"table"+">";
-				//1 LIGNE and 5 COLONNES
-				 table+="<tr>"+
-							"<td>"+"Code etablissement" +"</td>"+
-							"<td>"+"No dossier patient" +"</td>"+
-							"<td>"+"Date admission"     +"</td>"+
-							"<td>"+"Date Sortie"		+"</td>"+
-							"<td>"+"Specialite"         +"</td>"+
-						  "</tr>";
+		//1 LIGNE and 5 COLONNES
+		table+="<tr>"+
+			"<td>"+"Code etablissement" +"</td>"+
+				"<td>"+"No dossier patient" +"</td>"+
+				"<td>"+"Date admission"     +"</td>"+
+				"<td>"+"Date Sortie"		+"</td>"+
+				"<td>"+"Specialite"         +"</td>"+
+			 "</tr>";
 						  
 	for(var i in  select.options)//Pour chaque option
 	{
@@ -260,9 +277,123 @@ function showTable(select){
 	document.getElementById('divColAffiche').innerHTML=table;	
 }
 
+// <-- _______________________________________  ONGLET - HOSPITALISATION PAR ÉTABLISSEMENT ET SPECIALITÉ _______________________________________ -->
+
+/*Affiche un champ SELECT pour la liste des codes d’établissement .
+ Les champs SELECT sont générés directement à partir des données des tableaux JSON*/
+function chargerEtablissiment(){
+	
+	//pour chaque click...
+	hiddenDiv()
+	document.getElementById("selectByEtablissement").style.visibility = "visible";
+	document.getElementById("tag_p_Title").style.visibility = "visible";
+		
+    var selecCode = document.getElementById('selectByEtablissement');
+		selecCode.options.length=0;//on vide	
+
+    var tblSort = new Array();
+	var taille = 1;    
+	for(var prop in tbl_Hopital["Etablissements"] ){
+		tblSort[taille] = tbl_Hopital["Etablissements"][prop].Etablissement +" ("+
+						  tbl_Hopital["Etablissements"][prop].Nom+")";
+		taille++;
+	}	    
+	tblSort.sort()//sort table
+    
+	//...fill select  with informations from table.
+ 	for(var i = 0; i < tblSort.length;i++)	{
+		//remove each element equal to the preceding 
+		if( tblSort[i] != tblSort[i+1] ){
+            selecCode.options[selecCode.options.length] = new Option(tblSort[i]);
+		}
+	}
+	//On disponibilise la div que contient le select
+	document.getElementById("divColAfficheLeft").style.visibility = "visible";	
+}
+/*Affiche un champ SELECT pour la liste des spécialités*/
+function chargerSpecialite(selecCode)
+{	
+	document.getElementById("divColAffiche").style.visibility = "hidden";
+
+	var codeChoisie = selecCode.options[selecCode.selectedIndex].text;//Get the text from the selected index
+		codeChoisie = codeChoisie.substring(0,4);
+	var selSpecialite  = document.getElementById("specialite");//Get the tag to fill	
+	var obj ;	
+	var specialiteToCompare = "";
+		selSpecialite.options.length = 0;//vider le select 
+    var tblSort = new Array();
+	var taille = 1;
+
+	selSpecialite.options[selSpecialite.options.length] = new Option("Choisir...");
+	for(var prop in tbl_Hopital["Hospitalisations"] )
+	{				
+		obj = tbl_Hopital["Hospitalisations"][prop];//get objet of array		
+		if(obj.CodeEtablissement == codeChoisie)
+		{			
+			tblSort[taille] = obj.Specialite;
+			taille++;			
+		}		
+	}	
+	tblSort.sort()//On trie avant de filtrer
+	for(var i = 0; i < tblSort.length;i++)	
+	{
+		//remove each element equal to the preceding 
+		if( tblSort[i] != tblSort[i+1] )
+		{
+            selSpecialite.options[selSpecialite.options.length] = new Option(tblSort[i]);
+		}
+	}
+	
+	//On disponibilise la div que contient le select
+	document.getElementById("specialite").style.visibility = "visible";
+}
 
 
 
+//Affiche le tableau des hospitalisations filtré par specialité
+function showTableBySpecialite(select)
+{	
+	var selCode = document.getElementById("selectByEtablissement");
+	var code = selCode.options[selCode.selectedIndex].text;
+		code = code.substring(0,4);
+		
+	var table="<table border="+1+" ; class="+"table"+">";
+		//1 LIGNE and 5 COLONNES
+		table+="<tr>"+
+					"<td>"+"CODE" 		+"</td>"+
+					"<td>"+"DOSSIER" 	+"</td>"+
+					"<td>"+"ADMISSION"  +"</td>"+
+					"<td>"+"SORTIE"		+"</td>"+
+					"<td>"+"SPÉCIALITÉ" +"</td>"+
+				"</tr>";
+						  
+	for(var i in  select.options)
+	{
+		//...si l'item a été selectionné
+		if(select.options[i].selected)
+		{
+			//...recupere sa valeur 
+			var vl = select.options[i].text;
+			//alert(vl);
+			for(var prop in tbl_Hospitalisations)
+			{
+				if(tbl_Hospitalisations[prop].Specialite == vl && tbl_Hospitalisations[prop].CodeEtablissement == code)
+				{
+					table+="<tr>"+
+								 "<td>"+tbl_Hospitalisations[prop].CodeEtablissement+"</td>"+
+								 "<td>"+tbl_Hospitalisations[prop].NoDossierPatient	+"</td>"+
+								 "<td>"+tbl_Hospitalisations[prop].DateAdmission	+"</td>"+
+								 "<td>"+tbl_Hospitalisations[prop].DateSortie		+"</td>"+
+								 "<td>"+tbl_Hospitalisations[prop].Specialite		+"</td>"+
+						  "</tr>"; 
+				}
+			}
+		}		
+	}
+	table+= "</table>";    
+	document.getElementById("divColAffiche").style.visibility = "visible";
+	document.getElementById('divColAffiche').innerHTML=table;	
+}
 
  
   
