@@ -108,24 +108,23 @@ function initialize()
 function showPatients(){   
 	hiddenDiv(); //clean before
     var size = tbl_Patients.length;
-    //var table="<table border="+1+"; class="+"table"+">";
 	var table="<table class="+"table"+">";
-    //FIRST COLONNES ADN LIGNE....
+   
        table+="<tr>"+
-                "<td>"+"Dossier"  +"</td>"+
-                "<td>"+"Nom"      +"</td>"+
-                "<td>"+"Prenom"   +"</td>"+
-                "<td>"+"Naissence"+"</td>"+
-                "<td>"+"Sexe"     +"</td>"+
+					"<td>"+"<strong>Dossier</strong>"+"</td>"+
+					"<td>"+"<strong>Nom</strong>"+"</td>"+
+					"<td>"+"<strong>Prenom</strong>"+"</td>"+
+					"<td>"+"<strong>Naissence</strong>"+"</td>"+
+					"<td>"+"<strong>Sexe</strong>"+"</td>"+
                "</tr>";    
 	for(i=0; i < size; i++)	
 	{
       table+=  "<tr>"+
-                 "<td>"+tbl_Patients[i].Dossier+"</td>"+
-                 "<td>"+tbl_Patients[i].Nom+"</td>"+
-                 "<td>"+tbl_Patients[i].Prenom+"</td>"+
-                 "<td>"+tbl_Patients[i].Naissence+"</td>"+
-                 "<td>"+tbl_Patients[i].Sexe+"</td>"+
+					 "<td>"+tbl_Patients[i].Dossier+"</td>"+
+					 "<td>"+tbl_Patients[i].Nom+"</td>"+
+					 "<td>"+tbl_Patients[i].Prenom+"</td>"+
+					 "<td>"+tbl_Patients[i].Naissence+"</td>"+
+					 "<td>"+tbl_Patients[i].Sexe+"</td>"+
                 "</tr>";                   
 	}
     table+= "</table>";    
@@ -145,11 +144,11 @@ function showEtablissements(){
    var table="<table class="+"table"+">";
     //1 LIGNE and 5 COLONNES
        table+="<tr>"+
-                "<td>"+"Etablissement"   +"</td>"+
-                "<td>"+"Nom"             +"</td>"+
-                "<td>"+"Adresse"         +"</td>"+
-                "<td>"+"Code Postal"     +"</td>"+
-                "<td>"+"Telephone"       +"</td>"+
+	   			"<td>"+"<strong>Etablissement</strong>"+"</td>"+
+				"<td>"+"<strong>Nom</strong>"+"</td>"+
+				"<td>"+"<strong>Adresse</strong>"+"</td>"+
+				"<td>"+"<strong>Code Postal</strong>"+"</td>"+
+				"<td>"+"<strong>Telephone</strong>"+"</td>"+
                "</tr>";
     
 	for(i=0; i < size; i++)	
@@ -177,11 +176,11 @@ function showHospitalisations(){
    var table="<table class="+"table"+">";
     //1 LIGNE and 5 COLONNES
        table+="<tr>"+
-                "<td>"+"Code etablissement" +"</td>"+
-                "<td>"+"No dossier patient" +"</td>"+
-                "<td>"+"Date admission"     +"</td>"+
-                "<td>"+"Date sortie"        +"</td>"+
-                "<td>"+"Specialite"         +"</td>"+
+				"<td>"+"<strong>Code etablissement</strong>"+"</td>"+
+				"<td>"+"<strong>No dossier patient</strong>"+"</td>"+
+				"<td>"+"<strong>Date admission</strong>"+"</td>"+
+				"<td>"+"<strong>Date sortie</strong>"+"</td>"+
+				"<td>"+"<strong>Specialite</strong>"+"</td>"+
                "</tr>";
     
 	for(i=0; i < size; i++)	
@@ -242,12 +241,12 @@ function showTableHospByPatient(select){
 	var table="<table border="+1+" ; class="+"table"+">";
 		//1 LIGNE and 5 COLONNES
 		table+="<tr>"+
-			"<td>"+"Code etablissement" +"</td>"+
-				"<td>"+"No dossier patient" +"</td>"+
-				"<td>"+"Date admission"     +"</td>"+
-				"<td>"+"Date Sortie"		+"</td>"+
-				"<td>"+"Specialite"         +"</td>"+
-			 "</tr>";
+					"<td>"+"<strong>Code etablissement</strong>"+"</td>"+
+					"<td>"+"<strong>Dossier</strong>"+"</td>"+
+					"<td>"+"<strong>Admission</strong>"+"</td>"+
+					"<td>"+"<strong>Date Sortie</strong>"+"</td>"+
+					"<td>"+"<strong>Specialite</strong>"+"</td>"+			
+				"</tr>";
 						  
 	for(var i in  select.options)//Pour chaque option
 	{
@@ -360,11 +359,11 @@ function showTableBySpecialite(select)
 	var table="<table border="+1+" ; class="+"table"+">";
 		//1 LIGNE and 5 COLONNES
 		table+="<tr>"+
-					"<td>"+"CODE" 		+"</td>"+
-					"<td>"+"DOSSIER" 	+"</td>"+
-					"<td>"+"ADMISSION"  +"</td>"+
-					"<td>"+"SORTIE"		+"</td>"+
-					"<td>"+"SPÉCIALITÉ" +"</td>"+
+					"<td>"+"<strong>Code</strong>"+"</td>"+
+					"<td>"+"<strong>Dossier</strong>"+"</td>"+
+					"<td>"+"<strong>Admission</strong>"+"</td>"+
+					"<td>"+"<strong>Sortie</strong>"+"</td>"+
+					"<td>"+"<strong>Spécialité</strong>"+"</td>"+
 				"</tr>";
 						  
 	for(var i in  select.options)

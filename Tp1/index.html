@@ -2,38 +2,55 @@
 <html>
 <head>
     <title>Model</title>
-    <meta charset="utf-8"/>
 	<!--My own javascript-->
     <script type="text/javascript" src="js/hospitalisations.js"></script>
-	    <!--BOOTSTRAP CSS-->
-    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <!--jQuery-->
-    <!-- <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script> -->
-    <!--BOOTSTRAP JavaScript-->
-    <!-- <script type="text/javascript" src="js/bootstrap.min.js"> </script> -->
+	
+	   <!--BOOTSTRAP CSS-->
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  
     <!--My own CSS-->
 	<link href="css/style.css" type="text/css" rel="stylesheet"/>
 </head>
 <body onload="initialize();">     
-     <div class="container-scale" style=" height: 750px;"> 
+     <div class="container-scale"> 
         <!-- =============== ZONA MENU ===============-->
-        <div class="row" id="divLigMenu" style="border-style: dotted;height: 130px;">
-            <div class="col-sm-12" id="divColMenu" >                
-                <div class="topnav" >
-				  <a class="active" href="#" onclick="hiddenDiv()">Home</a>
-					<a href="#" onclick="showPatients()">Patients</a>
-					<a href="#" onclick="showEtablissements()">Établissements</a>
-					<a href="#" onclick="showHospitalisations()">Hospitalisations</a>
-					<a href="#" onclick="chargerDossier()">Hospitalisation par patient</a>
-					<a href="#" onclick="chargerEtablissiment()">Hospitalisation par etablissement ou specialite</a>
-                </div>
-            </div>
-        </div>   
+        <!-- <div class="row" id="divLigMenu" style="border-style: dotted;height: 130px;"> -->
+            <!-- <div class="col-sm-12" id="divColMenu" >                 -->
+                <!-- <div class="topnav" > -->
+				  <!-- <a class="active" href="#" onclick="hiddenDiv()">Home</a> -->
+					<!-- <a href="#" onclick="showPatients()">Patients</a> -->
+					<!-- <a href="#" onclick="showEtablissements()">Établissements</a> -->
+					<!-- <a href="#" onclick="showHospitalisations()">Hospitalisations</a> -->
+					<!-- <a href="#" onclick="chargerDossier()">Hospitalisation par patient</a> -->
+					<!-- <a href="#" onclick="chargerEtablissiment()">Hospitalisation par etablissement ou specialite</a> -->
+                <!-- </div> -->
+            <!-- </div> -->
+        <!-- </div>    -->
+			<nav class="navbar navbar-inverse">
+			  <div class="container-fluid">
+				<div class="navbar-header">
+				  <a class="navbar-brand" href="#" onclick="hiddenDiv()">Hopital-DeLaVie.com</a>
+				</div>
+				<ul class="nav navbar-nav">
+				  <li class="active"><a href="#" onclick="hiddenDiv()">Home</a></li>
+				  <li><a href="#" onclick="showPatients()">Patients</a></li>
+				  <li><a href="#" onclick="showEtablissements()">Établissements</a></li>
+				  <li><a href="#" onclick="showHospitalisations()">Hospitalisations</a></li>
+				  <li><a href="#" onclick="chargerDossier()">Hospitalisation par patient</a></li>
+				  <li><a href="#" onclick="chargerEtablissiment()">Hospitalisation par etablissement ou specialite</a></li>
+				</ul>
+			  </div>
+			</nav>
 		
         <!-- =============== ZONE D'AFFICHAGE ===============-->
-        <div class="row" id="divLigAffiche" style="border-style: dotted; height: 550px;">            
-			  <div class="col-sm-2" id="divColAfficheLeft" style="background-color:yellow">  
-					<p id="tag_p_Title" style="visibility:hidden">Selectionner le numero d'etablissement:</p>
+        <div class="row" id="divLigAffiche" >      
+			  <div class="col-sm-2" id="divColAfficheLeft" >  
+					<p id="tag_p_Title" 
+						style="visibility:hidden">Selectionner le numero d'etablissement:</p>
 				    <select id="selectByDossier" 
 							onChange="showTableHospByPatient(this)">
 					</select>	
@@ -47,14 +64,15 @@
 							onChange="showTableBySpecialite(this)">
 					</select>
 			  </div>
-			  <div class="col-sm-10" id="divColAffiche" style="background-color:red">
+			  <div class="col-sm-10" id="divColAffiche" >
 						<!--RendePage zone -->			  	
 			  </div>		  
         </div>   
 		
         <!-- =============== ZONA STATUS ===============-->
-        <div class="row" id="divLigStatus" style="border-style: dotted;">            
-            <div class="col-sm-12" id="divColStatus">                
+        <div class="row" id="divLigStatus">            
+            <div class="col-sm-12" id="footer"> 
+				<h2>ZONA STATUS</h2>
             </div>
         </div>  
 		
