@@ -8,14 +8,18 @@ body{
 .row{
 	width: 1200px;
 }
+/* #imageBack{ */
+	   /* width:200px; */
+	   /* height:200px; */
+/* } */
+
 #ligMenu{
-	 background-color: #D2B48C;
-	 
+	 background-color: #D2B48C;	 
 }
 div.container{
     width: 1200px;
     height: 800px; 
-	 border: 1px solid ; 
+	border: 1px solid #EAEDED; 	 
 }
 
 div{
@@ -26,7 +30,7 @@ div{
 #divColAfficheLeft{
 	float:left;
 	visibility:hidden;
-	width: 300px;
+	width: 250px;
 	height: 650px;
 	/* background-color: yellow; */
 }
@@ -39,32 +43,28 @@ div{
 
 #footer{
 	height: 100px;
-	  background-color: #777;
-	  text-align: center;
-	  color: white;
+	background-color: #BFC9CA;
+	text-align: center;
+	color: red;
 }
 
 /* ============ TABLE ============ */
 .table { 
 	margin-top:20px;
+	width: 750px;
+	/* background-color: floralwhite; */
 	/* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; */
 }
-/* .table { */
-  /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; */
-  /* border-collapse: collapse; */
-  /* border: 1px solid #ddd;  */
-  /* width: 100%; */
-  /* background-color: floralwhite;  */
-/* } */
-
 table td, table th {
   border: 1px solid #ddd;
   /* padding: 8px; */
 }
+table tr:nth-child(even){
+	background-color: #f2f2f2;
+}
 
-table tr:nth-child(even){background-color: #f2f2f2;}
-/*link active color*/
 table tr:hover {
+	/*link active color*/
 	background-color: #ddd;
 }
 

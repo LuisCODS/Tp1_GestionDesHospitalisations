@@ -110,6 +110,7 @@ function initialize()
 	document.getElementById("selectByEtablissement").style.visibility = "hidden";
 	document.getElementById("tag_p_Title").style.visibility = "hidden";
 	document.getElementById("specialite").style.visibility = "hidden";
+	document.getElementById("msn-Alert").style.visibility = "hidden";
  }
 
 // <-- _______________________________________  ONGLET - PATIENT _______________________________________ -->
@@ -302,11 +303,11 @@ function chargerEtablissiment(){
 	document.getElementById("selectByEtablissement").style.visibility = "visible";
 	document.getElementById("tag_p_Title").style.visibility = "visible";
 		
-    var selecCode = document.getElementById('selectByEtablissement');
+	var selecCode = document.getElementById('selectByEtablissement');
 		selecCode.options.length=0;//on vide	
-        selecCode.options[selecCode.options.length]=new Option("Choisir...");
+		selecCode.options[selecCode.options.length]=new Option("Choisir...");
 
-    var tblSort = new Array();
+	var tblSort = new Array();
 	var taille = 1;    
 	for(var prop in tbl_Hopital["Etablissements"] ){
 		tblSort[taille] = tbl_Hopital["Etablissements"][prop].Etablissement +" ("+
@@ -314,12 +315,12 @@ function chargerEtablissiment(){
 		taille++;
 	}	    
 	tblSort.sort()//sort table
-    
+
 	//...fill select  with informations from table.
- 	for(var i = 0; i < tblSort.length;i++)	{
+	for(var i = 0; i < tblSort.length;i++)	{
 		//remove each element equal to the preceding 
 		if( tblSort[i] != tblSort[i+1] ){
-            selecCode.options[selecCode.options.length] = new Option(tblSort[i]);
+			selecCode.options[selecCode.options.length] = new Option(tblSort[i]);
 		}
 	}
 	//On disponibilise la div que contient le select
@@ -328,39 +329,48 @@ function chargerEtablissiment(){
 /*Affiche un champ SELECT pour la liste des spécialités*/
 function chargerSpecialite(selecCode)
 {	
+	//Cache la table pour chaque (onChange) sur la select (selectByEtablissement)
 	document.getElementById("divColAffiche").style.visibility = "hidden";
-
-	var codeChoisie = selecCode.options[selecCode.selectedIndex].text;//Get the text from the selected index
-		codeChoisie = codeChoisie.substring(0,4);
-	var selSpecialite  = document.getElementById("specialite");//Get the tag to fill	
+	//OnChange, cache l'avertissement pour l'etablissement que n'a aucun dossier
+	document.getElementById("msn-Alert").style.visibility = "hidden";
+	
+	var codeChoisie = selecCode.options[selecCode.selectedIndex].text;//Get the text(value) from the selected index
+		codeChoisie = codeChoisie.substring(0,4);//get only the 4 string
+	var selSpecialite  = document.getElementById("specialite");
 	var obj ;	
-	var specialiteToCompare = "";
+	// var specialiteToCompare = "";
 		selSpecialite.options.length = 0;//vider le select 
         selSpecialite.options[selSpecialite.options.length]=new Option("Choisir la spécialité...");
+		
     var tblSort = new Array();
 	var taille = 1;
-
 	for(var prop in tbl_Hopital["Hospitalisations"] )
 	{				
-		obj = tbl_Hopital["Hospitalisations"][prop];//get objet of array		
-		if(obj.CodeEtablissement == codeChoisie)
-		{			
-			tblSort[taille] = obj.Specialite;
-			taille++;			
-		}		
+		obj = tbl_Hopital["Hospitalisations"][prop];//get the [objet] of the array		
+			if(obj.CodeEtablissement == codeChoisie)
+			{			
+				tblSort[taille] = obj.Specialite;
+				taille++;			
+			}		
 	}	
-	tblSort.sort()//On trie avant de filtrer
-	for(var i = 0; i < tblSort.length;i++)	
-	{
-		//remove each element equal to the preceding 
-		if( tblSort[i] != tblSort[i+1] )
-		{
-            selSpecialite.options[selSpecialite.options.length] = new Option(tblSort[i]);
-		}
-	}
 	
-	//On disponibilise la div que contient le select
-	document.getElementById("specialite").style.visibility = "visible";
+	if(tblSort.length == 0)	{
+		document.getElementById("msn-Alert").style.visibility = "visible";
+		document.getElementById("specialite").style.visibility = "hidden";
+	}
+	else{
+		tblSort.sort()//On trie avant de filtrer
+		for(var i = 0; i < tblSort.length;i++)	
+		{
+			//remove each element equal to the preceding 
+			if( tblSort[i] != tblSort[i+1] )
+			{
+				selSpecialite.options[selSpecialite.options.length] = new Option(tblSort[i]);
+			}
+		}
+		// On disponibilise la div que contient le select
+		document.getElementById("specialite").style.visibility = "visible";
+	}
 }
 
 
