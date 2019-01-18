@@ -2,16 +2,16 @@
 // <-- ============================== PATIENTS ============================== -->
 
 //OBJETS...
-var Patient1  = {Dossier: 01,   Nom:"Leger",     Prenom:"Emile", 	Naissence: "26 mars 1917",     Sexe:"M"};
-var Patient2  = {Dossier: 02,   Nom:"Bernard",   Prenom:"Marie", 	Naissence: "3 fevrier 1946",   Sexe:"F"};
-var Patient3  = {Dossier: 03,   Nom:"Chartrand", Prenom:"Guy", 	    Naissence: "5 avril 1959",     Sexe:"M"};
-var Patient4  =	{Dossier: 04,   Nom:"Cote",      Prenom:"Andre", 	Naissence: "2 septembre 1978", Sexe:"M"};
-var Patient5  =	{Dossier: 05,   Nom:"Lavoie",    Prenom:"Carole", 	Naissence: "4 novembre 1973",  Sexe:"F"};
-var Patient6  =	{Dossier: 06,   Nom:"Martin",    Prenom:"Diane", 	Naissence: "2 decembre 1965",  Sexe:"F"};
-var Patient7  =	{Dossier: 07,   Nom:"Lacroix",   Prenom:"Pauline",  Naissence: "25 janvier 1956",  Sexe:"F"};
-var Patient8  =	{Dossier: 08,   Nom:"St-Jean",   Prenom:"Arthur", 	Naissence: "7 octobre 1912",   Sexe:"M"};
-var Patient9  =	{Dossier: 09,   Nom:"Bechard",   Prenom:"Marc", 	Naissence: "8 aout 1980",      Sexe:"M"};
-var Patient10 =	{Dossier: 10,   Nom:"Chartrand", Prenom:"Mario",    Naissence: "23 juillet 1947",  Sexe:"M"};
+var Patient1  = {Dossier: 1,   Nom:"Leger",     Prenom:"Emile", 	Naissence: "26 mars 1917",     Sexe:"M"};
+var Patient2  = {Dossier: 2,   Nom:"Bernard",   Prenom:"Marie", 	Naissence: "3 fevrier 1946",   Sexe:"F"};
+var Patient3  = {Dossier: 3,   Nom:"Chartrand", Prenom:"Guy", 	    Naissence: "5 avril 1959",     Sexe:"M"};
+var Patient4  =	{Dossier: 4,   Nom:"Cote",      Prenom:"Andre", 	Naissence: "2 septembre 1978", Sexe:"M"};
+var Patient5  =	{Dossier: 5,   Nom:"Lavoie",    Prenom:"Carole", 	Naissence: "4 novembre 1973",  Sexe:"F"};
+var Patient6  =	{Dossier: 6,   Nom:"Martin",    Prenom:"Diane", 	Naissence: "2 decembre 1965",  Sexe:"F"};
+var Patient7  =	{Dossier: 7,   Nom:"Lacroix",   Prenom:"Pauline",  Naissence: "25 janvier 1956",  Sexe:"F"};
+var Patient8  =	{Dossier: 8,   Nom:"St-Jean",   Prenom:"Arthur", 	Naissence: "7 octobre 1912",   Sexe:"M"};
+var Patient9  =	{Dossier: 9,   Nom:"Bechard",   Prenom:"Marc", 	Naissence: "8 aout 1980",      Sexe:"M"};
+var Patient10 =	{Dossier: 10,  Nom:"Chartrand", Prenom:"Mario",    Naissence: "23 juillet 1947",  Sexe:"M"};
 
 //TABLEAU 
 var tbl_Patients = [Patient1,
@@ -233,9 +233,9 @@ function chargerDossier()
     //Cree une array et y placer tous les numeros de dossier des patients...
     var tblSort = new Array();
 	var taille = 1;    
-	for(var prop in tbl_Hopital["Hospitalisations"] )
+	for(var prop in tbl_Hopital["Patiens"] )
 	{
-		tblSort[taille] = tbl_Hopital["Hospitalisations"][prop].NoDossierPatient;
+		tblSort[taille] = parseInt(tbl_Hopital["Patiens"][prop].Dossier);
 		taille++;
 	}	
     //On trie avant de filtrer
@@ -257,10 +257,10 @@ function showTableHospByPatient(select){
         var table="<table class=table>";
 		//1 LIGNE and 5 COLONNES
 		table+="<tr class=success>"+
-					"<td>"+"<strong>Code etablissement</strong>"+"</td>"+
-					"<td>"+"<strong>Dossier</strong>"+"</td>"+
-					"<td>"+"<strong>Admission</strong>"+"</td>"+
-					"<td>"+"<strong>Date Sortie</strong>"+"</td>"+
+					"<td>"+"<strong>CodeEtablissement</strong>"+"</td>"+
+					"<td>"+"<strong>NoDossierPatient</strong>"+"</td>"+
+					"<td>"+"<strong>DataAdimission</strong>"+"</td>"+
+					"<td>"+"<strong>DataSortie</strong>"+"</td>"+
 					"<td>"+"<strong>Specialite</strong>"+"</td>"+			
 				"</tr>";
 						  
@@ -280,8 +280,8 @@ function showTableHospByPatient(select){
 								 "<td>"+tbl_Hospitalisations[prop].CodeEtablissement+"</td>"+
 								 "<td>"+tbl_Hospitalisations[prop].NoDossierPatient	+"</td>"+
 								 "<td>"+tbl_Hospitalisations[prop].DateAdmission	+"</td>"+
-								 "<td>"+tbl_Hospitalisations[prop].DateSortie		+"</td>"+
-								 "<td>"+tbl_Hospitalisations[prop].Specialite		+"</td>"+
+								 "<td>"+tbl_Hospitalisations[prop].DateSortie		+"</td>"+	
+								"<td>"+tbl_Hospitalisations[prop].Specialite		+"</td>"+
 						"</tr>"; 
 				}
 			}
